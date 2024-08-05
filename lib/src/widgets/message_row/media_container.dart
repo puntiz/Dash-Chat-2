@@ -35,18 +35,15 @@ class MediaContainer extends StatelessWidget {
       case MediaType.video:
         return Stack(
           alignment: AlignmentDirectional.bottomEnd,
-          children: <Widget>[
-            VideoPlayer(url: media.url, key: Key(media.url)),
-            if (media.isUploading) loading
-          ],
+          children: <Widget>[VideoPlayer(url: media.url, key: Key(media.url)), if (media.isUploading) loading],
         );
       case MediaType.image:
         return Stack(
           alignment: AlignmentDirectional.bottomEnd,
           children: <Widget>[
             Image(
-              height: height,
-              width: width,
+              height: 150, //TODO: CHANGE THIS SO USER CAN PROVIDE IMAGE SIZES
+              width: 150,
               fit: BoxFit.cover,
               alignment: isOwnMessage ? Alignment.topRight : Alignment.topLeft,
               image: getImageProvider(media.url),
@@ -68,9 +65,7 @@ class MediaContainer extends StatelessWidget {
                       ? Icon(
                           Icons.description,
                           size: 18,
-                          color: isOwnMessage
-                              ? messageOptions.currentUserTextColor(context)
-                              : messageOptions.textColor,
+                          color: isOwnMessage ? messageOptions.currentUserTextColor(context) : messageOptions.textColor,
                         )
                       : loading,
                 ),
@@ -79,9 +74,7 @@ class MediaContainer extends StatelessWidget {
                     media.fileName,
                     style: TextStyle(
                       decoration: TextDecoration.underline,
-                      color: isOwnMessage
-                          ? messageOptions.currentUserTextColor(context)
-                          : messageOptions.textColor,
+                      color: isOwnMessage ? messageOptions.currentUserTextColor(context) : messageOptions.textColor,
                     ),
                   ),
                 ),
@@ -100,8 +93,7 @@ class MediaContainer extends StatelessWidget {
         alignment: isOwnMessage ? WrapAlignment.end : WrapAlignment.start,
         children: media.map(
           (ChatMedia m) {
-            final double gallerySize =
-                (MediaQuery.of(context).size.width * 0.7) / 2 - 5;
+            final double gallerySize = (MediaQuery.of(context).size.width * 0.7) / 2 - 5;
             final bool isImage = m.type == MediaType.image;
             return Container(
               color: Colors.transparent,
@@ -113,9 +105,7 @@ class MediaContainer extends StatelessWidget {
                 maxWidth: MediaQuery.of(context).size.width * 0.7,
               ),
               child: GestureDetector(
-                onTap: messageOptions.onTapMedia != null
-                    ? () => messageOptions.onTapMedia!(m)
-                    : null,
+                onTap: messageOptions.onTapMedia != null ? () => messageOptions.onTapMedia!(m) : null,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
                   child: ColorFiltered(
