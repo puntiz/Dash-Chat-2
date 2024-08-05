@@ -85,7 +85,7 @@ class MessageRow extends StatelessWidget {
                 maxWidth: messageOptions.maxWidth ?? MediaQuery.of(context).size.width * 0.7,
               ),
               child: Container(
-                padding: const EdgeInsets.fromLTRB(10, 3, 10, 3),
+                padding: const EdgeInsets.fromLTRB(10, 3, 5, 3),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: isOwnMessage ? Colors.orange : Colors.amber,
