@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -8,6 +9,8 @@ ImageProvider getImageProvider(String url) {
     return CachedNetworkImageProvider(url);
   } else if (url.startsWith('assets')) {
     return AssetImage(url);
+  } else if (url.startsWith('imageBytes')) {
+    return MemoryImage(base64Decode(url.split('::')[1]));
   } else {
     return FileImage(
       File(url),

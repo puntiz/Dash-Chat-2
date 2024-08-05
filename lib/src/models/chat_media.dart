@@ -6,6 +6,7 @@ class ChatMedia {
     required this.url,
     required this.fileName,
     required this.type,
+    this.imageBytes,
     this.isUploading = false,
     this.uploadedDate,
     this.customProperties,
@@ -18,9 +19,8 @@ class ChatMedia {
       fileName: jsonData['fileName'].toString(),
       type: MediaType.parse(jsonData['type'].toString()),
       isUploading: jsonData['isUploading'] == true,
-      uploadedDate: jsonData['uploadedDate'] != null
-          ? DateTime.parse(jsonData['uploadedDate'].toString()).toLocal()
-          : null,
+      imageBytes: jsonData['imageBytes'] != null ? base64Decode(jsonData['imageBytes'].toString()) : null,
+      uploadedDate: jsonData['uploadedDate'] != null ? DateTime.parse(jsonData['uploadedDate'].toString()).toLocal() : null,
       customProperties: jsonData['customProperties'] as Map<String, dynamic>?,
     );
   }
@@ -33,6 +33,9 @@ class ChatMedia {
 
   /// Type of media
   MediaType type;
+
+  /// Image Bytes as  Uint8List
+  Uint8List? imageBytes;
 
   /// If the media is still uploading, useful to add a visual feedback
   bool isUploading;
@@ -51,6 +54,7 @@ class ChatMedia {
       'url': url,
       'type': type.toString(),
       'fileName': fileName,
+      'imageBytes': imageBytes != null ? base64Encode(imageBytes!) : null,
       'isUploading': isUploading,
       'uploadedDate': uploadedDate?.toUtc().toIso8601String(),
       'customProperties': customProperties,
