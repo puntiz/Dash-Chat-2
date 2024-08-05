@@ -42,8 +42,8 @@ class MediaContainer extends StatelessWidget {
           alignment: AlignmentDirectional.bottomEnd,
           children: <Widget>[
             Image(
-              height: 150, //TODO: CHANGE THIS SO USER CAN PROVIDE IMAGE SIZES
-              width: 150,
+              height: 100, //TODO: CHANGE THIS SO USER CAN PROVIDE IMAGE SIZES
+              width: 100,
               fit: BoxFit.cover,
               alignment: isOwnMessage ? Alignment.topRight : Alignment.topLeft,
               image: getImageProvider(media.url),
