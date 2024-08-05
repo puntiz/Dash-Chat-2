@@ -86,8 +86,10 @@ class MessageRow extends StatelessWidget {
               ),
               child: Container(
                 padding: const EdgeInsets.all(3),
-                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                color: isOwnMessage ? Colors.orange : Colors.amber,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: isOwnMessage ? Colors.orange : Colors.amber,
+                ),
                 child: Column(
                   crossAxisAlignment: isOwnMessage ? CrossAxisAlignment.end : CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.end,
