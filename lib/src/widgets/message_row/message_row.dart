@@ -102,23 +102,29 @@ class MessageRow extends StatelessWidget {
                         if (message.medias != null && message.medias!.isNotEmpty && messageOptions.textBeforeMedia)
                           messageOptions.messageMediaBuilder != null
                               ? messageOptions.messageMediaBuilder!(message, previousMessage, nextMessage)
-                              : MediaContainer(
-                                  message: message,
-                                  isOwnMessage: isOwnMessage,
-                                  messageOptions: messageOptions,
+                              : SizedBox(
+                                  width: messageOptions.maxWidth ?? MediaQuery.of(context).size.width * 0.683,
+                                  child: MediaContainer(
+                                    message: message,
+                                    isOwnMessage: isOwnMessage,
+                                    messageOptions: messageOptions,
+                                  ),
                                 ),
                         if (message.text.isNotEmpty)
-                          TextContainer(
-                            messageOptions: messageOptions,
-                            message: message,
-                            previousMessage: previousMessage,
-                            nextMessage: nextMessage,
-                            isOwnMessage: isOwnMessage,
-                            isNextSameAuthor: isNextSameAuthor,
-                            isPreviousSameAuthor: isPreviousSameAuthor,
-                            isAfterDateSeparator: isAfterDateSeparator,
-                            isBeforeDateSeparator: isBeforeDateSeparator,
-                            messageTextBuilder: messageOptions.messageTextBuilder,
+                          SizedBox(
+                            width: messageOptions.maxWidth ?? MediaQuery.of(context).size.width * 0.683,
+                            child: TextContainer(
+                              messageOptions: messageOptions,
+                              message: message,
+                              previousMessage: previousMessage,
+                              nextMessage: nextMessage,
+                              isOwnMessage: isOwnMessage,
+                              isNextSameAuthor: isNextSameAuthor,
+                              isPreviousSameAuthor: isPreviousSameAuthor,
+                              isAfterDateSeparator: isAfterDateSeparator,
+                              isBeforeDateSeparator: isBeforeDateSeparator,
+                              messageTextBuilder: messageOptions.messageTextBuilder,
+                            ),
                           ),
                         if (message.medias != null && message.medias!.isNotEmpty && !messageOptions.textBeforeMedia)
                           messageOptions.messageMediaBuilder != null

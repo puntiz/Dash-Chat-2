@@ -24,7 +24,6 @@ class DefaultMessageText extends StatelessWidget {
       crossAxisAlignment: isOwnMessage ? CrossAxisAlignment.end : CrossAxisAlignment.start,
       children: <Widget>[
         Wrap(
-          direction: Axis.vertical,
           children: getMessage(context),
         ),
         if (messageOptions.showTime)
