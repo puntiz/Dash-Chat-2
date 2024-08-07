@@ -21,10 +21,10 @@ class DefaultMessageText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment:
-          isOwnMessage ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+      crossAxisAlignment: isOwnMessage ? CrossAxisAlignment.end : CrossAxisAlignment.start,
       children: <Widget>[
         Wrap(
+          direction: Axis.vertical,
           children: getMessage(context),
         ),
         if (messageOptions.showTime)
@@ -33,12 +33,9 @@ class DefaultMessageText extends StatelessWidget {
               : Padding(
                   padding: messageOptions.timePadding,
                   child: Text(
-                    (messageOptions.timeFormat ?? intl.DateFormat('HH:mm'))
-                        .format(message.createdAt),
+                    (messageOptions.timeFormat ?? intl.DateFormat('HH:mm')).format(message.createdAt),
                     style: TextStyle(
-                      color: isOwnMessage
-                          ? messageOptions.currentUserTimeTextColor(context)
-                          : messageOptions.timeTextColor(),
+                      color: isOwnMessage ? messageOptions.currentUserTimeTextColor(context) : messageOptions.timeTextColor(),
                       fontSize: messageOptions.timeFontSize,
                     ),
                   ),
@@ -53,9 +50,7 @@ class DefaultMessageText extends StatelessWidget {
       String stringMentionRegex = '';
       for (final Mention mention in message.mentions!) {
         stringRegex += '(${mention.title})' r'([\s\S]*)';
-        stringMentionRegex += stringMentionRegex.isEmpty
-            ? '(${mention.title})'
-            : '|(${mention.title})';
+        stringMentionRegex += stringMentionRegex.isEmpty ? '(${mention.title})' : '|(${mention.title})';
       }
       final RegExp mentionRegex = RegExp(stringMentionRegex);
       final RegExp regexp = RegExp(stringRegex);
@@ -63,9 +58,7 @@ class DefaultMessageText extends StatelessWidget {
       RegExpMatch? match = regexp.firstMatch(message.text);
       if (match != null) {
         List<Widget> res = <Widget>[];
-        match
-            .groups(List<int>.generate(match.groupCount, (int i) => i + 1))
-            .forEach((String? part) {
+        match.groups(List<int>.generate(match.groupCount, (int i) => i + 1)).forEach((String? part) {
           Mention? mention;
           if (mentionRegex.hasMatch(part!)) {
             try {
@@ -105,14 +98,10 @@ class DefaultMessageText extends StatelessWidget {
             },
           )
         : ParsedText(
-            parse: messageOptions.parsePatterns != null
-                ? messageOptions.parsePatterns!
-                : defaultParsePatterns,
+            parse: messageOptions.parsePatterns != null ? messageOptions.parsePatterns! : defaultParsePatterns,
             text: text,
             style: TextStyle(
-              color: isOwnMessage
-                  ? messageOptions.currentUserTextColor(context)
-                  : messageOptions.textColor,
+              color: isOwnMessage ? messageOptions.currentUserTextColor(context) : messageOptions.textColor,
             ),
           );
   }
@@ -121,14 +110,9 @@ class DefaultMessageText extends StatelessWidget {
     return RichText(
       text: TextSpan(
         text: mention.title,
-        recognizer: TapGestureRecognizer()
-          ..onTap = () => messageOptions.onPressMention != null
-              ? messageOptions.onPressMention!(mention)
-              : null,
+        recognizer: TapGestureRecognizer()..onTap = () => messageOptions.onPressMention != null ? messageOptions.onPressMention!(mention) : null,
         style: TextStyle(
-          color: isOwnMessage
-              ? messageOptions.currentUserTextColor(context)
-              : messageOptions.textColor,
+          color: isOwnMessage ? messageOptions.currentUserTextColor(context) : messageOptions.textColor,
           decoration: TextDecoration.none,
           fontWeight: FontWeight.w600,
         ),

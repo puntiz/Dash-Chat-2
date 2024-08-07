@@ -50,8 +50,8 @@ class MediaContainer extends StatelessWidget {
             Image(
               height: 70, //TODO: CHANGE THIS SO USER CAN PROVIDE IMAGE SIZES
               width: 70,
-              fit: BoxFit.cover,
-              alignment: isOwnMessage ? Alignment.topRight : Alignment.topLeft,
+              fit: BoxFit.contain,
+              alignment: isOwnMessage ? Alignment.topRight : Alignment.topRight,
               image: getImageProvider(media.url),
             ),
             if (media.isUploading) loading
