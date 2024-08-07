@@ -35,7 +35,13 @@ class MediaContainer extends StatelessWidget {
       case MediaType.video:
         return Stack(
           alignment: AlignmentDirectional.bottomEnd,
-          children: <Widget>[VideoPlayer(url: media.url, key: Key(media.url)), if (media.isUploading) loading],
+          children: <Widget>[
+            SizedBox(
+                height: 70, //TODO: CHANGE THIS SO USER CAN PROVIDE IMAGE SIZES
+                width: 70,
+                child: VideoPlayer(url: media.url, key: Key(media.url))),
+            if (media.isUploading) loading
+          ],
         );
       case MediaType.image:
         return Stack(
