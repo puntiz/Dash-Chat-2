@@ -97,48 +97,35 @@ class MessageRow extends StatelessWidget {
                     if (messageOptions.top != null) messageOptions.top!(message, previousMessage, nextMessage),
                     if (!isOwnMessage && messageOptions.showOtherUsersName && (!isPreviousSameAuthor || isAfterDateSeparator))
                       messageOptions.userNameBuilder != null ? messageOptions.userNameBuilder!(message.user) : DefaultUserName(user: message.user),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Row(
-                        children: <Widget>[
-                          if (message.medias != null && message.medias!.isNotEmpty && messageOptions.textBeforeMedia)
-                            messageOptions.messageMediaBuilder != null
-                                ? messageOptions.messageMediaBuilder!(message, previousMessage, nextMessage)
-                                : SizedBox(
-                                    width: messageOptions.maxWidth ?? MediaQuery.of(context).size.width * 0.683,
-                                    child: MediaContainer(
-                                      message: message,
-                                      isOwnMessage: isOwnMessage,
-                                      messageOptions: messageOptions,
-                                    ),
-                                  ),
-                          if (message.text.isNotEmpty)
-                            SizedBox(
-                              width: messageOptions.maxWidth ?? MediaQuery.of(context).size.width * 0.683,
-                              child: TextContainer(
-                                messageOptions: messageOptions,
-                                message: message,
-                                previousMessage: previousMessage,
-                                nextMessage: nextMessage,
-                                isOwnMessage: isOwnMessage,
-                                isNextSameAuthor: isNextSameAuthor,
-                                isPreviousSameAuthor: isPreviousSameAuthor,
-                                isAfterDateSeparator: isAfterDateSeparator,
-                                isBeforeDateSeparator: isBeforeDateSeparator,
-                                messageTextBuilder: messageOptions.messageTextBuilder,
-                              ),
+                    if (message.medias != null && message.medias!.isNotEmpty && messageOptions.textBeforeMedia)
+                      messageOptions.messageMediaBuilder != null
+                          ? messageOptions.messageMediaBuilder!(message, previousMessage, nextMessage)
+                          : MediaContainer(
+                              message: message,
+                              isOwnMessage: isOwnMessage,
+                              messageOptions: messageOptions,
                             ),
-                          if (message.medias != null && message.medias!.isNotEmpty && !messageOptions.textBeforeMedia)
-                            messageOptions.messageMediaBuilder != null
-                                ? messageOptions.messageMediaBuilder!(message, previousMessage, nextMessage)
-                                : MediaContainer(
-                                    message: message,
-                                    isOwnMessage: isOwnMessage,
-                                    messageOptions: messageOptions,
-                                  ),
-                        ],
+                    if (message.text.isNotEmpty)
+                      TextContainer(
+                        messageOptions: messageOptions,
+                        message: message,
+                        previousMessage: previousMessage,
+                        nextMessage: nextMessage,
+                        isOwnMessage: isOwnMessage,
+                        isNextSameAuthor: isNextSameAuthor,
+                        isPreviousSameAuthor: isPreviousSameAuthor,
+                        isAfterDateSeparator: isAfterDateSeparator,
+                        isBeforeDateSeparator: isBeforeDateSeparator,
+                        messageTextBuilder: messageOptions.messageTextBuilder,
                       ),
-                    ),
+                    if (message.medias != null && message.medias!.isNotEmpty && !messageOptions.textBeforeMedia)
+                      messageOptions.messageMediaBuilder != null
+                          ? messageOptions.messageMediaBuilder!(message, previousMessage, nextMessage)
+                          : MediaContainer(
+                              message: message,
+                              isOwnMessage: isOwnMessage,
+                              messageOptions: messageOptions,
+                            ),
                     if (messageOptions.bottom != null) messageOptions.bottom!(message, previousMessage, nextMessage),
                   ],
                 ),
