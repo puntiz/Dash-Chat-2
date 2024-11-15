@@ -5,7 +5,6 @@ class MessageList extends StatefulWidget {
   const MessageList({
     required this.currentUser,
     required this.messages,
-    this.pinnedMessage = '',
     this.readOnly = false,
     this.messageOptions = const MessageOptions(),
     this.messageListOptions = const MessageListOptions(),
@@ -20,9 +19,6 @@ class MessageList extends StatefulWidget {
 
   /// List of messages visible in the chat
   final List<ChatMessage> messages;
-
-  /// Pinned Message
-  final String pinnedMessage;
 
   /// Whether the chat is read only, used for safe area
   final bool readOnly;
@@ -68,7 +64,7 @@ class MessageListState extends State<MessageList> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              if (widget.pinnedMessage.isNotEmpty)
+              if (widget.messageListOptions.pinnedMessage.isNotEmpty)
                 Expanded(
                   flex: 5,
                   child: Container(
@@ -77,7 +73,7 @@ class MessageListState extends State<MessageList> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Text(
-                          widget.pinnedMessage,
+                          widget.messageListOptions.pinnedMessage,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                               fontSize:

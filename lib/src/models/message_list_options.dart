@@ -14,10 +14,14 @@ class MessageListOptions {
     this.onLoadEarlier,
     this.typingBuilder,
     this.scrollPhysics,
+    this.pinnedMessage = '',
   });
 
   /// If you want to who a date separator between messages of different dates
   final bool showDateSeparator;
+
+  /// Pinned Message
+  final String pinnedMessage;
 
   /// The formatting of the date in the date separator.
   /// By default it will adapt according to the difference with today
