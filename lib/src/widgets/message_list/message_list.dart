@@ -65,35 +65,45 @@ class MessageListState extends State<MessageList> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               if (widget.messageListOptions.pinnedMessage.isNotEmpty)
-                Expanded(
-                  flex: 5,
-                  child: Container(
-                    color: widget.messageOptions.containerColor,
+                // Container(
+                //flex: 10,
+                //child:
+                Container(
+                  color: widget.messageOptions.containerColor,
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text(
-                          widget.messageListOptions.pinnedMessage,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              fontSize:
-                                  widget.messageOptions.timeFontSize * 1.5,
-                              fontWeight: FontWeight.bold),
+                      children: <Widget>[
+                        Expanded(
+                          child: Text(
+                            widget.messageListOptions.pinnedMessage,
+                            softWrap: true,
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                fontSize:
+                                    widget.messageOptions.timeFontSize * 1.4,
+                                fontWeight: FontWeight.bold),
+                          ),
                         ),
-                        const Expanded(
-                          child: Icon(
-                            Icons.notification_important,
-                            color: Colors.orangeAccent,
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            width: 20,
+                            child: Icon(
+                              Icons.notification_important,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ],
                     ),
                   ),
-                )
-              else
-                Container(),
+                ),
+              //)
+
               Expanded(
-                flex: 95,
+                flex: 90,
                 child: ListView.builder(
                   physics: widget.messageListOptions.scrollPhysics,
                   padding: widget.readOnly ? null : EdgeInsets.zero,
