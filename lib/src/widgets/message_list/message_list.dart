@@ -5,6 +5,7 @@ class MessageList extends StatefulWidget {
   const MessageList({
     required this.currentUser,
     required this.messages,
+    this.pinnedMessage = '',
     this.readOnly = false,
     this.messageOptions = const MessageOptions(),
     this.messageListOptions = const MessageListOptions(),
@@ -19,6 +20,9 @@ class MessageList extends StatefulWidget {
 
   /// List of messages visible in the chat
   final List<ChatMessage> messages;
+
+  /// Pinned Message
+  final String pinnedMessage;
 
   /// Whether the chat is read only, used for safe area
   final bool readOnly;
@@ -64,7 +68,36 @@ class MessageListState extends State<MessageList> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              if (widget.pinnedMessage.isNotEmpty)
+                Expanded(
+                  flex: 5,
+                  child: Container(
+                    color: widget.messageOptions.containerColor,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Text(
+                          widget.pinnedMessage,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              fontSize:
+                                  widget.messageOptions.timeFontSize * 1.5,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        const Expanded(
+                          child: Icon(
+                            Icons.notification_important,
+                            color: Colors.orangeAccent,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              else
+                Container(),
               Expanded(
+                flex: 95,
                 child: ListView.builder(
                   physics: widget.messageListOptions.scrollPhysics,
                   padding: widget.readOnly ? null : EdgeInsets.zero,
