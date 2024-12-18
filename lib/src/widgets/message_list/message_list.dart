@@ -61,61 +61,66 @@ class MessageListState extends State<MessageList> {
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: Stack(
         children: <Widget>[
-          Expanded(
-            child: ListView.builder(
-              physics: widget.messageListOptions.scrollPhysics,
-              padding: widget.readOnly ? null : EdgeInsets.zero,
-              controller: scrollController,
-              reverse: true,
-              itemCount: widget.messages.length,
-              itemBuilder: (BuildContext context, int i) {
-                final ChatMessage? previousMessage =
-                    i < widget.messages.length - 1
-                        ? widget.messages[i + 1]
-                        : null;
-                final ChatMessage? nextMessage =
-                    i > 0 ? widget.messages[i - 1] : null;
-                final ChatMessage message = widget.messages[i];
-                final bool isAfterDateSeparator = _shouldShowDateSeparator(
-                    previousMessage, message, widget.messageListOptions);
-                bool isBeforeDateSeparator = false;
-                if (nextMessage != null) {
-                  isBeforeDateSeparator = _shouldShowDateSeparator(
-                      message, nextMessage, widget.messageListOptions);
-                }
-                return Column(
-                  children: <Widget>[
-                    if (isAfterDateSeparator)
-                      widget.messageListOptions.dateSeparatorBuilder != null
-                          ? widget.messageListOptions
-                              .dateSeparatorBuilder!(message.createdAt)
-                          : DefaultDateSeparator(
-                              date: message.createdAt,
-                              messageListOptions: widget.messageListOptions,
-                            ),
-                    if (widget.messageOptions.messageRowBuilder !=
-                        null) ...<Widget>[
-                      widget.messageOptions.messageRowBuilder!(
-                        message,
-                        previousMessage,
-                        nextMessage,
-                        isAfterDateSeparator,
-                        isBeforeDateSeparator,
-                      ),
-                    ] else
-                      MessageRow(
-                        message: widget.messages[i],
-                        nextMessage: nextMessage,
-                        previousMessage: previousMessage,
-                        currentUser: widget.currentUser,
-                        isAfterDateSeparator: isAfterDateSeparator,
-                        isBeforeDateSeparator: isBeforeDateSeparator,
-                        messageOptions: widget.messageOptions,
-                      ),
-                  ],
-                );
-              },
-            ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  physics: widget.messageListOptions.scrollPhysics,
+                  padding: widget.readOnly ? null : EdgeInsets.zero,
+                  controller: scrollController,
+                  reverse: true,
+                  itemCount: widget.messages.length,
+                  itemBuilder: (BuildContext context, int i) {
+                    final ChatMessage? previousMessage =
+                        i < widget.messages.length - 1
+                            ? widget.messages[i + 1]
+                            : null;
+                    final ChatMessage? nextMessage =
+                        i > 0 ? widget.messages[i - 1] : null;
+                    final ChatMessage message = widget.messages[i];
+                    final bool isAfterDateSeparator = _shouldShowDateSeparator(
+                        previousMessage, message, widget.messageListOptions);
+                    bool isBeforeDateSeparator = false;
+                    if (nextMessage != null) {
+                      isBeforeDateSeparator = _shouldShowDateSeparator(
+                          message, nextMessage, widget.messageListOptions);
+                    }
+                    return Column(
+                      children: <Widget>[
+                        if (isAfterDateSeparator)
+                          widget.messageListOptions.dateSeparatorBuilder != null
+                              ? widget.messageListOptions
+                                  .dateSeparatorBuilder!(message.createdAt)
+                              : DefaultDateSeparator(
+                                  date: message.createdAt,
+                                  messageListOptions: widget.messageListOptions,
+                                ),
+                        if (widget.messageOptions.messageRowBuilder !=
+                            null) ...<Widget>[
+                          widget.messageOptions.messageRowBuilder!(
+                            message,
+                            previousMessage,
+                            nextMessage,
+                            isAfterDateSeparator,
+                            isBeforeDateSeparator,
+                          ),
+                        ] else
+                          MessageRow(
+                            message: widget.messages[i],
+                            nextMessage: nextMessage,
+                            previousMessage: previousMessage,
+                            currentUser: widget.currentUser,
+                            isAfterDateSeparator: isAfterDateSeparator,
+                            isBeforeDateSeparator: isBeforeDateSeparator,
+                            messageOptions: widget.messageOptions,
+                          ),
+                      ],
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
           if (widget.typingUsers != null && widget.typingUsers!.isNotEmpty)
             ...widget.typingUsers!.map((ChatUser user) {
