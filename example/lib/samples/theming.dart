@@ -15,7 +15,7 @@ class ThemeSampleState extends State<ThemeSample> {
     return Theme(
       data: ThemeData(
         appBarTheme: const AppBarTheme(
-          color: Color(0xff00ff9f),
+          backgroundColor: Color(0xff00ff9f),
           titleTextStyle: TextStyle(
             color: Color(0xff001eff),
             fontSize: 20,

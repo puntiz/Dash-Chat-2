@@ -71,7 +71,9 @@ class MediaContainer extends StatelessWidget {
                       ? Icon(
                           Icons.description,
                           size: 18,
-                          color: isOwnMessage ? messageOptions.currentUserTextColor(context) : messageOptions.textColor,
+                          color: isOwnMessage
+                              ? messageOptions.currentUserTextColor(context)
+                              : messageOptions.textColor,
                         )
                       : loading,
                 ),
@@ -80,7 +82,9 @@ class MediaContainer extends StatelessWidget {
                     media.fileName,
                     style: TextStyle(
                       decoration: TextDecoration.underline,
-                      color: isOwnMessage ? messageOptions.currentUserTextColor(context) : messageOptions.textColor,
+                      color: isOwnMessage
+                          ? messageOptions.currentUserTextColor(context)
+                          : messageOptions.textColor,
                     ),
                   ),
                 ),
@@ -99,7 +103,8 @@ class MediaContainer extends StatelessWidget {
         alignment: isOwnMessage ? WrapAlignment.end : WrapAlignment.start,
         children: media.map(
           (ChatMedia m) {
-            final double gallerySize = (MediaQuery.of(context).size.width * 0.7) / 2 - 5;
+            final double gallerySize =
+                (MediaQuery.of(context).size.width * 0.7) / 2 - 5;
             final bool isImage = m.type == MediaType.image;
             return Container(
               color: Colors.transparent,
@@ -111,7 +116,9 @@ class MediaContainer extends StatelessWidget {
                 maxWidth: MediaQuery.of(context).size.width * 0.7,
               ),
               child: GestureDetector(
-                onTap: messageOptions.onTapMedia != null ? () => messageOptions.onTapMedia!(m) : null,
+                onTap: messageOptions.onTapMedia != null
+                    ? () => messageOptions.onTapMedia!(m)
+                    : null,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
                   child: ColorFiltered(

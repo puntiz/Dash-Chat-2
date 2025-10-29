@@ -63,7 +63,7 @@ class MessageListState extends State<MessageList> {
         children: <Widget>[
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+            children: <Widget>[
               Expanded(
                 child: ListView.builder(
                   physics: widget.messageListOptions.scrollPhysics,
